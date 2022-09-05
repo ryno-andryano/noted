@@ -9,16 +9,16 @@ function Header({nav, onOpenNav, onCloseNav}) {
         <a className="header__logo" href="/">
           <img className="header__image" src="./images/logo.png" alt=""></img>
         </a>
-        <MdMenu
-          size={32}
-          className={!nav ? 'header__menu-icon' : 'hidden'}
-          onClick={onOpenNav}
-        />
-        <MdClose
-          size={32}
-          className={nav ? 'header__menu-icon' : 'hidden'}
-          onClick={onCloseNav}
-        />
+        <button
+          className="header__menu-button"
+          onClick={nav ? onCloseNav : onOpenNav}
+        >
+          {nav ? (
+            <MdClose size={32} className="header__menu-icon" />
+          ) : (
+            <MdMenu size={32} className="header__menu-icon" />
+          )}
+        </button>
       </div>
       <Navigation nav={nav} />
     </div>

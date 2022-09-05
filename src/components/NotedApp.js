@@ -9,7 +9,7 @@ class NotedApp extends React.Component {
       nav: window.innerWidth >= 1024 ? true : false,
     };
     window.addEventListener('resize', () => {
-      this.setState({nav: window.innerWidth >= 1024 ? true : false});
+      window.innerWidth >= 1024 && this.setState({nav: true});
     });
 
     this.onOpenNavHandler = this.onOpenNavHandler.bind(this);
