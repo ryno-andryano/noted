@@ -60,7 +60,7 @@ html {
 .navigation {
   background-color: $light;
   z-index: 1;
-  height: 100vh;
+  height: calc(100vh - 70px);
   width: 176px;
   position: relative;
   left: 0;
@@ -93,7 +93,7 @@ html {
       margin-bottom: 12px;
       transform: translate(-4px, 0);
       padding: 12px 4px;
-      margin-top: 16px;
+      margin-top: 20px;
 
       &:hover {
         transition: transform 0.5s, background-color 0.5s;
@@ -113,9 +113,13 @@ html {
 main {
   margin-top: 70px;
   padding: 18px;
+
+  p {
+    margin-top: 12px;
+  }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   #root {
     display: grid;
     grid-template-columns: 210px 1fr;
@@ -144,6 +148,7 @@ main {
   .navigation {
     transition: none;
     width: 100%;
+    height: calc(100vh - 86px);
     padding: 20px 28px;
     border: none;
 
@@ -164,7 +169,12 @@ main {
     margin-top: 0;
     width: 100%;
     height: 100%;
-    padding: 39px 32px 32px;
+    min-height: 100vh;
+    padding: 34px 5% 32px;
+
+    p {
+      margin-top: 32px;
+    }
   }
 }
 
