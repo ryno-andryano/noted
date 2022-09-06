@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {MdMenu, MdClose} from 'react-icons/md';
-import Navigation from './Navigation';
 
 function Header({nav, onOpenNav, onCloseNav}) {
   return (
@@ -25,7 +24,6 @@ function Header({nav, onOpenNav, onCloseNav}) {
           )}
         </button>
       </div>
-      <Navigation nav={nav} onCloseNav={onCloseNav} />
     </div>
   );
 }

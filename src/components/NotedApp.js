@@ -4,6 +4,7 @@ import Header from './Header';
 import NotesPage from '../pages/NotesPage';
 import AddNotePage from '../pages/AddNotePage';
 import ArchivePage from '../pages/ArchivePage';
+import Navigation from './Navigation';
 
 class NotedApp extends React.Component {
   constructor(props) {
@@ -13,18 +14,24 @@ class NotedApp extends React.Component {
       nav: window.innerWidth >= 768 ? true : false,
     };
     window.addEventListener('resize', () => {
-      window.innerWidth >= 768 && this.setState({nav: true});
+      if (window.innerWidth >= 768) {
+        this.state.nav === false && this.setState({nav: true});
+      } else {
+        this.state.nav === true && this.setState({nav: false});
+      }
     });
 
     this.onOpenNavHandler = this.onOpenNavHandler.bind(this);
     this.onCloseNavHandler = this.onCloseNavHandler.bind(this);
   }
 
-  onOpenNavHandler() {
+  onOpenNavHandler(event) {
+    event.stopPropagation();
     this.setState({nav: true});
   }
 
-  onCloseNavHandler() {
+  onCloseNavHandler(event) {
+    event.stopPropagation();
     this.setState({nav: false});
   }
 
@@ -36,7 +43,11 @@ class NotedApp extends React.Component {
           onOpenNav={this.onOpenNavHandler}
           onCloseNav={this.onCloseNavHandler}
         />
-        <main>
+        <Navigation nav={this.state.nav} onCloseNav={this.onCloseNavHandler} />
+        <main
+          className="main"
+          onClick={window.innerWidth < 768 ? this.onCloseNavHandler : null}
+        >
           <Routes>
             <Route path="/" element={<NotesPage />} />
             <Route path="/add" element={<AddNotePage />} />
