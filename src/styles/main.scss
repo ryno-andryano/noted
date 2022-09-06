@@ -45,6 +45,7 @@ html {
     padding: 6px;
     height: 44px;
     width: 44px;
+    color: $dark;
     cursor: pointer;
   }
   &__logo {
@@ -64,13 +65,11 @@ html {
   width: 176px;
   position: fixed;
   top: 70px;
-  left: 0;
-  transition: left 1s;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   padding: 12px 18px;
 
   &.closed {
-    left: -176px;
+    display: none;
   }
 
   &__link {
@@ -121,12 +120,31 @@ html {
 }
 
 .search-bar {
+  margin-top: 10px;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 44px;
+  display: flex;
+  align-items: center;
   &__input {
+    width: calc(100% - 36px);
+    height: 36px;
+    padding: 0 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px 0 0 6px;
+    border: 1px solid $dark;
+    border-right: none;
   }
   &__button {
+    width: 36px;
+    height: 36px;
+    background-color: $primary;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    border: 1px solid $dark;
+    border-left: none;
+  }
+  &__icon {
+    color: $secondary;
   }
 }
 
@@ -186,6 +204,19 @@ html {
 
     p {
       margin-top: 32px;
+    }
+  }
+
+  .search-bar {
+    margin-top: 0;
+    width: 300px;
+  }
+
+  .notes-page {
+    &__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 }

@@ -1,9 +1,13 @@
 import React from 'react';
+import SearchBar from '../components/SearchBar';
 
 function ArchivePage() {
   return (
     <section>
-      <h2>Archive</h2>
+      <div className="notes-page__head">
+        <h2>Archive</h2>
+        <SearchBar />
+      </div>
       <p>
         In sed feugiat purus, a bibendum augue. Aliquam euismod tempor
         porttitor. Suspendisse potenti. Ut sollicitudin semper justo, sit amet
