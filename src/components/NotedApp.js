@@ -5,6 +5,12 @@ import NotesPage from '../pages/NotesPage';
 import AddNotePage from '../pages/AddNotePage';
 import ArchivePage from '../pages/ArchivePage';
 import Navigation from './Navigation';
+import {
+  getActiveNotes,
+  getArchivedNotes,
+  archiveNote,
+  unarchiveNote,
+} from '../utils/local-data';
 
 class NotedApp extends React.Component {
   constructor(props) {
@@ -12,7 +18,10 @@ class NotedApp extends React.Component {
 
     this.state = {
       nav: window.innerWidth >= 768 ? true : false,
+      activeNotes: getActiveNotes(),
+      archivedNotes: getArchivedNotes(),
     };
+
     window.addEventListener('resize', () => {
       if (window.innerWidth >= 768) {
         this.state.nav === false && this.setState({nav: true});
@@ -23,6 +32,15 @@ class NotedApp extends React.Component {
 
     this.onOpenNavHandler = this.onOpenNavHandler.bind(this);
     this.onCloseNavHandler = this.onCloseNavHandler.bind(this);
+    this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
+    this.onUnarchiveNoteHandler = this.onUnarchiveNoteHandler.bind(this);
+  }
+
+  updateNotesState() {
+    this.setState({
+      activeNotes: getActiveNotes(),
+      archivedNotes: getArchivedNotes(),
+    });
   }
 
   onOpenNavHandler(event) {
@@ -33,6 +51,16 @@ class NotedApp extends React.Component {
   onCloseNavHandler(event) {
     event.stopPropagation();
     this.setState({nav: false});
+  }
+
+  onArchiveNoteHandler(id) {
+    archiveNote(id);
+    this.updateNotesState();
+  }
+
+  onUnarchiveNoteHandler(id) {
+    unarchiveNote(id);
+    this.updateNotesState();
   }
 
   render() {
@@ -49,9 +77,25 @@ class NotedApp extends React.Component {
           onClick={window.innerWidth < 768 ? this.onCloseNavHandler : null}
         >
           <Routes>
-            <Route path="/" element={<NotesPage />} />
+            <Route
+              path="/"
+              element={
+                <NotesPage
+                  notes={this.state.activeNotes}
+                  onArchive={this.onArchiveNoteHandler}
+                />
+              }
+            />
             <Route path="/add" element={<AddNotePage />} />
-            <Route path="/archive" element={<ArchivePage />} />
+            <Route
+              path="/archive"
+              element={
+                <ArchivePage
+                  notes={this.state.archivedNotes}
+                  onUnarchive={this.onUnarchiveNoteHandler}
+                />
+              }
+            />
           </Routes>
         </main>
       </>

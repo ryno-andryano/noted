@@ -2,15 +2,15 @@ import React from 'react';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
 
-function ArchivePage() {
+function ArchivePage({notes, onUnarchive}) {
   return (
-    <section className="notes-page">
-      <div className="notes-page__head">
+    <section className="archive-page">
+      <div className="archive-page__head">
         <h2>Archive</h2>
         <SearchBar />
       </div>
-      <div className="notes-page__body">
-        <NoteList />
+      <div className="archive-page__body">
+        <NoteList notes={notes} onUnarchive={onUnarchive} isArchive />
       </div>
     </section>
   );
