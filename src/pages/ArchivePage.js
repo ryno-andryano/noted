@@ -2,7 +2,7 @@ import React from 'react';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
 
-function ArchivePage({notes, onUnarchive}) {
+function ArchivePage({notes, onUnarchive, onDelete}) {
   return (
     <section className="archive-page">
       <div className="archive-page__head">
@@ -10,7 +10,12 @@ function ArchivePage({notes, onUnarchive}) {
         <SearchBar />
       </div>
       <div className="archive-page__body">
-        <NoteList notes={notes} onUnarchive={onUnarchive} isArchive />
+        <NoteList
+          isArchive
+          notes={notes}
+          onUnarchive={onUnarchive}
+          onDelete={onDelete}
+        />
       </div>
     </section>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
 
-function NotesPage({notes, onArchive}) {
+function NotesPage({notes, onArchive, onDelete}) {
   return (
     <section className="notes-page">
       <div className="notes-page__head">
@@ -10,7 +10,7 @@ function NotesPage({notes, onArchive}) {
         <SearchBar />
       </div>
       <div className="notes-page__body">
-        <NoteList notes={notes} onArchive={onArchive} />
+        <NoteList notes={notes} onArchive={onArchive} onDelete={onDelete} />
       </div>
     </section>
   );

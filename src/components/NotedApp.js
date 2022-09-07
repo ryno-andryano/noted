@@ -10,6 +10,7 @@ import {
   getArchivedNotes,
   archiveNote,
   unarchiveNote,
+  deleteNote,
 } from '../utils/local-data';
 
 class NotedApp extends React.Component {
@@ -34,6 +35,7 @@ class NotedApp extends React.Component {
     this.onCloseNavHandler = this.onCloseNavHandler.bind(this);
     this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
     this.onUnarchiveNoteHandler = this.onUnarchiveNoteHandler.bind(this);
+    this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
   }
 
   updateNotesState() {
@@ -63,6 +65,11 @@ class NotedApp extends React.Component {
     this.updateNotesState();
   }
 
+  onDeleteNoteHandler(id) {
+    deleteNote(id);
+    this.updateNotesState();
+  }
+
   render() {
     return (
       <>
@@ -83,6 +90,7 @@ class NotedApp extends React.Component {
                 <NotesPage
                   notes={this.state.activeNotes}
                   onArchive={this.onArchiveNoteHandler}
+                  onDelete={this.onDeleteNoteHandler}
                 />
               }
             />
@@ -93,6 +101,7 @@ class NotedApp extends React.Component {
                 <ArchivePage
                   notes={this.state.archivedNotes}
                   onUnarchive={this.onUnarchiveNoteHandler}
+                  onDelete={this.onDeleteNoteHandler}
                 />
               }
             />
