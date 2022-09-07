@@ -1,5 +1,9 @@
 import React from 'react';
-import {MdArchive, MdUnarchive, MdDelete} from 'react-icons/md';
+import {
+  MdOutlineArchive,
+  MdOutlineUnarchive,
+  MdOutlineDelete,
+} from 'react-icons/md';
 import formatDate from '../utils/format-date';
 
 function NoteItem({
@@ -31,7 +35,11 @@ function NoteItem({
             title={isArchive ? 'Unarchive' : 'Archive'}
             onClick={() => (isArchive ? onUnarchive(id) : onArchive(id))}
           >
-            {isArchive ? <MdUnarchive size={22} /> : <MdArchive size={22} />}
+            {isArchive ? (
+              <MdOutlineUnarchive size={22} />
+            ) : (
+              <MdOutlineArchive size={22} />
+            )}
           </button>
 
           <button
@@ -39,7 +47,7 @@ function NoteItem({
             title="Delete"
             onClick={() => onDelete(id)}
           >
-            <MdDelete size={22} />
+            <MdOutlineDelete size={22} />
           </button>
         </div>
       </div>

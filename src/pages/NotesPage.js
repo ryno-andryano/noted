@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
+import EmptyNotes from '../components/EmptyNotes';
 
 function NotesPage({notes, onArchive, onDelete}) {
   return (
@@ -10,7 +11,11 @@ function NotesPage({notes, onArchive, onDelete}) {
         <SearchBar />
       </div>
       <div className="notes-page__body">
-        <NoteList notes={notes} onArchive={onArchive} onDelete={onDelete} />
+        {notes.length > 0 ? (
+          <NoteList notes={notes} onArchive={onArchive} onDelete={onDelete} />
+        ) : (
+          <EmptyNotes />
+        )}
       </div>
     </section>
   );

@@ -78,7 +78,9 @@ class NotedApp extends React.Component {
           onOpenNav={this.onOpenNavHandler}
           onCloseNav={this.onCloseNavHandler}
         />
+
         <Navigation nav={this.state.nav} onCloseNav={this.onCloseNavHandler} />
+
         <main
           className="main"
           onClick={window.innerWidth < 768 ? this.onCloseNavHandler : null}

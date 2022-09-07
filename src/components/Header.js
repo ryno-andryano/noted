@@ -4,7 +4,7 @@ import {MdMenu, MdClose} from 'react-icons/md';
 
 function Header({nav, onOpenNav, onCloseNav}) {
   return (
-    <div className="header">
+    <header className="header">
       <div className="header__inner">
         <Link
           to="/"
@@ -24,7 +24,7 @@ function Header({nav, onOpenNav, onCloseNav}) {
           )}
         </button>
       </div>
-    </div>
+    </header>
   );
 }
 

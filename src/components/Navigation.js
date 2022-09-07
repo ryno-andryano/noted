@@ -8,7 +8,7 @@ import {
 
 function Navigation({nav, onCloseNav}) {
   return (
-    <nav className={nav ? 'navigation' : 'navigation closed'}>
+    <nav className={nav ? 'navigation' : 'navigation hidden'}>
       <Link
         to="/add"
         className="navigation__link"
