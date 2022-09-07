@@ -3,12 +3,12 @@ import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
 import EmptyNotes from '../components/EmptyNotes';
 
-function ArchivePage({notes, onUnarchive, onDelete}) {
+function ArchivePage({notes, query, onQChange, onUnarchive, onDelete}) {
   return (
     <section className="archive-page">
       <div className="archive-page__head">
         <h2>Archive</h2>
-        <SearchBar />
+        <SearchBar query={query} onQChange={onQChange} />
       </div>
       <div className="archive-page__body">
         {notes.length > 0 ? (

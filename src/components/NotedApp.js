@@ -21,6 +21,7 @@ class NotedApp extends React.Component {
       nav: window.innerWidth >= 768 ? true : false,
       activeNotes: getActiveNotes(),
       archivedNotes: getArchivedNotes(),
+      query: '',
     };
 
     window.addEventListener('resize', () => {
@@ -33,6 +34,7 @@ class NotedApp extends React.Component {
 
     this.onOpenNavHandler = this.onOpenNavHandler.bind(this);
     this.onCloseNavHandler = this.onCloseNavHandler.bind(this);
+    this.onQueryChangeHandler = this.onQueryChangeHandler.bind(this);
     this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
     this.onUnarchiveNoteHandler = this.onUnarchiveNoteHandler.bind(this);
     this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
@@ -53,6 +55,10 @@ class NotedApp extends React.Component {
   onCloseNavHandler(event) {
     event.stopPropagation();
     this.setState({nav: false});
+  }
+
+  onQueryChangeHandler(query) {
+    this.setState({query});
   }
 
   onArchiveNoteHandler(id) {
@@ -93,6 +99,8 @@ class NotedApp extends React.Component {
                   notes={this.state.activeNotes}
                   onArchive={this.onArchiveNoteHandler}
                   onDelete={this.onDeleteNoteHandler}
+                  query={this.state.query}
+                  onQChange={this.onQueryChangeHandler}
                 />
               }
             />
@@ -104,6 +112,8 @@ class NotedApp extends React.Component {
                   notes={this.state.archivedNotes}
                   onUnarchive={this.onUnarchiveNoteHandler}
                   onDelete={this.onDeleteNoteHandler}
+                  query={this.state.query}
+                  onQChange={this.onQueryChangeHandler}
                 />
               }
             />
