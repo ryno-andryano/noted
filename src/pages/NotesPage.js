@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchBar from '../components/SearchBar';
+import NoteList from '../components/NoteList';
 
 function NotesPage() {
   return (
@@ -8,7 +9,9 @@ function NotesPage() {
         <h2>Notes</h2>
         <SearchBar />
       </div>
-      <div className="notes-page__body"></div>
+      <div className="notes-page__body">
+        <NoteList />
+      </div>
     </section>
   );
 }
