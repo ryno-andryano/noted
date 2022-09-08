@@ -1,8 +1,20 @@
 import React from 'react';
+import {useSearchParams} from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
 import EmptyNotes from '../components/EmptyNotes';
 import {getArchivedNotes, unarchiveNote, deleteNote} from '../utils/local-data';
+
+function ArchivePageWrapper() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('title');
+
+  function changeSearchParams(title) {
+    setSearchParams({title});
+  }
+
+  return <ArchivePage defaultQuery={query} queryChange={changeSearchParams} />;
+}
 
 class ArchivePage extends React.Component {
   constructor(props) {
@@ -10,8 +22,8 @@ class ArchivePage extends React.Component {
 
     this.state = {
       notes: getArchivedNotes(),
-      input: '',
-      query: '',
+      input: props.defaultQuery || '',
+      query: props.defaultQuery || '',
     };
 
     this.onInputChangeHandler = this.onInputChangeHandler.bind(this);
@@ -24,11 +36,13 @@ class ArchivePage extends React.Component {
     this.setState({input});
     if (!input) {
       this.setState({query: ''});
+      this.props.queryChange('');
     }
   }
 
   onSearchHandler() {
     this.setState({query: this.state.input});
+    this.props.queryChange(this.state.input);
   }
 
   onUnarchiveNoteHandler(id) {
@@ -77,5 +91,5 @@ class ArchivePage extends React.Component {
   }
 }
 
-export default ArchivePage;
+export default ArchivePageWrapper;
 
