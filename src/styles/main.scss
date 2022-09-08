@@ -336,7 +336,7 @@ html {
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1080px) {
   .note-list {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -349,6 +349,12 @@ html {
 
   .note-list {
     gap: 22px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .note-list {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 }
 

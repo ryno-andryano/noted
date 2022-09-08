@@ -5,13 +5,6 @@ import NotesPage from '../pages/NotesPage';
 import AddNotePage from '../pages/AddNotePage';
 import ArchivePage from '../pages/ArchivePage';
 import Navigation from './Navigation';
-import {
-  getActiveNotes,
-  getArchivedNotes,
-  archiveNote,
-  unarchiveNote,
-  deleteNote,
-} from '../utils/local-data';
 
 class NotedApp extends React.Component {
   constructor(props) {
@@ -19,9 +12,6 @@ class NotedApp extends React.Component {
 
     this.state = {
       nav: window.innerWidth >= 768 ? true : false,
-      activeNotes: getActiveNotes(),
-      archivedNotes: getArchivedNotes(),
-      query: '',
     };
 
     window.addEventListener('resize', () => {
@@ -34,18 +24,6 @@ class NotedApp extends React.Component {
 
     this.onOpenNavHandler = this.onOpenNavHandler.bind(this);
     this.onCloseNavHandler = this.onCloseNavHandler.bind(this);
-    this.onQueryChangeHandler = this.onQueryChangeHandler.bind(this);
-    this.onSearchHandler = this.onSearchHandler.bind(this);
-    this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
-    this.onUnarchiveNoteHandler = this.onUnarchiveNoteHandler.bind(this);
-    this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
-  }
-
-  updateNotesState() {
-    this.setState({
-      activeNotes: getActiveNotes(),
-      archivedNotes: getArchivedNotes(),
-    });
   }
 
   onOpenNavHandler(event) {
@@ -55,39 +33,9 @@ class NotedApp extends React.Component {
 
   onCloseNavHandler(event) {
     event.stopPropagation();
-    this.setState({nav: false});
-  }
-
-  onQueryChangeHandler(query) {
-    this.setState({query});
-    if (!query) {
-      this.updateNotesState();
+    if (window.innerWidth < 768) {
+      this.setState({nav: false});
     }
-  }
-
-  onSearchHandler(isArchive) {
-    const notes = isArchive ? getArchivedNotes() : getActiveNotes();
-    const filteredNotes = notes.filter((note) =>
-      note.title.toLowerCase().includes(this.state.query.toLowerCase()),
-    );
-    isArchive
-      ? this.setState({archivedNotes: filteredNotes})
-      : this.setState({activeNotes: filteredNotes});
-  }
-
-  onArchiveNoteHandler(id) {
-    archiveNote(id);
-    this.updateNotesState();
-  }
-
-  onUnarchiveNoteHandler(id) {
-    unarchiveNote(id);
-    this.updateNotesState();
-  }
-
-  onDeleteNoteHandler(id) {
-    deleteNote(id);
-    this.updateNotesState();
   }
 
   render() {
@@ -101,38 +49,11 @@ class NotedApp extends React.Component {
 
         <Navigation nav={this.state.nav} onCloseNav={this.onCloseNavHandler} />
 
-        <main
-          className="main"
-          onClick={window.innerWidth < 768 ? this.onCloseNavHandler : null}
-        >
+        <main className="main" onClick={this.onCloseNavHandler}>
           <Routes>
-            <Route
-              path="/"
-              element={
-                <NotesPage
-                  notes={this.state.activeNotes}
-                  onArchive={this.onArchiveNoteHandler}
-                  onDelete={this.onDeleteNoteHandler}
-                  query={this.state.query}
-                  onSearch={this.onSearchHandler}
-                  onQChange={this.onQueryChangeHandler}
-                />
-              }
-            />
+            <Route path="/" element={<NotesPage />} />
             <Route path="/add" element={<AddNotePage />} />
-            <Route
-              path="/archive"
-              element={
-                <ArchivePage
-                  notes={this.state.archivedNotes}
-                  onUnarchive={this.onUnarchiveNoteHandler}
-                  onDelete={this.onDeleteNoteHandler}
-                  query={this.state.query}
-                  onSearch={this.onSearchHandler}
-                  onQChange={this.onQueryChangeHandler}
-                />
-              }
-            />
+            <Route path="/archive" element={<ArchivePage />} />
           </Routes>
         </main>
       </>

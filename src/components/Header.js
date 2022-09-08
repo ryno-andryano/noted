@@ -6,11 +6,7 @@ function Header({nav, onOpenNav, onCloseNav}) {
   return (
     <header className="header">
       <div className="header__inner">
-        <Link
-          to="/"
-          className="header__logo"
-          onClick={window.innerWidth < 768 ? onCloseNav : null}
-        >
+        <Link to="/" className="header__logo" onClick={onCloseNav}>
           <img className="header__image" src="./images/logo.png" alt=""></img>
         </Link>
         <button
