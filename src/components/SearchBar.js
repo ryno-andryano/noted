@@ -1,7 +1,7 @@
 import React from 'react';
 import {MdSearch} from 'react-icons/md';
 
-function SearchBar({isArchive, query, onQChange, onSearch}) {
+function SearchBar({isArchive, input, onInputChange, onSearch}) {
   return (
     <form
       className="search-bar"
@@ -14,8 +14,8 @@ function SearchBar({isArchive, query, onQChange, onSearch}) {
         type="search"
         placeholder="Search note..."
         className="search-bar__input"
-        value={query}
-        onChange={(event) => onQChange(event.target.value)}
+        value={input}
+        onChange={(event) => onInputChange(event.target.value)}
       ></input>
       <button type="submit" className="search-bar__button">
         <MdSearch size={20} className="search-bar__icon" />

@@ -10,28 +10,25 @@ class ArchivePage extends React.Component {
 
     this.state = {
       notes: getArchivedNotes(),
+      input: '',
       query: '',
     };
 
-    this.onQueryChangeHandler = this.onQueryChangeHandler.bind(this);
+    this.onInputChangeHandler = this.onInputChangeHandler.bind(this);
     this.onSearchHandler = this.onSearchHandler.bind(this);
     this.onUnarchiveNoteHandler = this.onUnarchiveNoteHandler.bind(this);
     this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
   }
 
-  onQueryChangeHandler(query) {
-    this.setState({query});
-    if (!query) {
-      this.setState({notes: getArchivedNotes()});
+  onInputChangeHandler(input) {
+    this.setState({input});
+    if (!input) {
+      this.setState({query: ''});
     }
   }
 
   onSearchHandler() {
-    const notes = getArchivedNotes();
-    const filteredNotes = notes.filter((note) =>
-      note.title.toLowerCase().includes(this.state.query.toLowerCase()),
-    );
-    this.setState({notes: filteredNotes});
+    this.setState({query: this.state.input});
   }
 
   onUnarchiveNoteHandler(id) {
@@ -45,6 +42,13 @@ class ArchivePage extends React.Component {
   }
 
   render() {
+    let filteredNotes = this.state.notes;
+    if (this.state.query) {
+      filteredNotes = this.state.notes.filter((note) =>
+        note.title.toLowerCase().includes(this.state.query.toLowerCase()),
+      );
+    }
+
     return (
       <section className="archive-page">
         <div className="archive-page__head">
@@ -52,15 +56,15 @@ class ArchivePage extends React.Component {
           <SearchBar
             isArchive
             query={this.state.query}
-            onQChange={this.onQueryChangeHandler}
+            onInputChange={this.onInputChangeHandler}
             onSearch={this.onSearchHandler}
           />
         </div>
         <div className="archive-page__body">
-          {this.state.notes.length > 0 ? (
+          {filteredNotes.length > 0 ? (
             <NoteList
               isArchive
-              notes={this.state.notes}
+              notes={filteredNotes}
               onUnarchive={this.onUnarchiveNoteHandler}
               onDelete={this.onDeleteNoteHandler}
             />

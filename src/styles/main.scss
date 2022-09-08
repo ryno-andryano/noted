@@ -126,22 +126,21 @@ html {
     height: 36px;
     padding: 0 12px;
     font-size: 16px;
-    border: none;
     border-radius: 8px;
-    border: 1px solid $dark;
+    border: 2px solid $grey;
     border-right: none;
   }
   &__button {
     width: 36px;
     height: 36px;
     background-color: $primary;
-    border: none;
     border-radius: 0 8px 8px 0;
-    border: 1px solid $dark;
+    border: 2px solid $grey;
     border-left: none;
     position: absolute;
     right: 0;
     top: 0;
+    cursor: pointer;
   }
   &__icon {
     color: $secondary;

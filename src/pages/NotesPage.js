@@ -10,28 +10,25 @@ class NotesPage extends React.Component {
 
     this.state = {
       notes: getActiveNotes(),
+      input: '',
       query: '',
     };
 
-    this.onQueryChangeHandler = this.onQueryChangeHandler.bind(this);
+    this.onInputChangeHandler = this.onInputChangeHandler.bind(this);
     this.onSearchHandler = this.onSearchHandler.bind(this);
     this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
     this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
   }
 
-  onQueryChangeHandler(query) {
-    this.setState({query});
-    if (!query) {
-      this.setState({notes: getActiveNotes()});
+  onInputChangeHandler(input) {
+    this.setState({input});
+    if (!input) {
+      this.setState({query: ''});
     }
   }
 
   onSearchHandler() {
-    const notes = getActiveNotes();
-    const filteredNotes = notes.filter((note) =>
-      note.title.toLowerCase().includes(this.state.query.toLowerCase()),
-    );
-    this.setState({notes: filteredNotes});
+    this.setState({query: this.state.input});
   }
 
   onArchiveNoteHandler(id) {
@@ -45,20 +42,27 @@ class NotesPage extends React.Component {
   }
 
   render() {
+    let filteredNotes = this.state.notes;
+    if (this.state.query) {
+      filteredNotes = this.state.notes.filter((note) =>
+        note.title.toLowerCase().includes(this.state.query.toLowerCase()),
+      );
+    }
+
     return (
       <section className="notes-page">
         <div className="notes-page__head">
           <h2>Notes</h2>
           <SearchBar
-            query={this.state.query}
-            onQChange={this.onQueryChangeHandler}
+            input={this.state.input}
+            onInputChange={this.onInputChangeHandler}
             onSearch={this.onSearchHandler}
           />
         </div>
         <div className="notes-page__body">
-          {this.state.notes.length > 0 ? (
+          {filteredNotes.length > 0 ? (
             <NoteList
-              notes={this.state.notes}
+              notes={filteredNotes}
               onArchive={this.onArchiveNoteHandler}
               onDelete={this.onDeleteNoteHandler}
             />
@@ -72,4 +76,3 @@ class NotesPage extends React.Component {
 }
 
 export default NotesPage;
-
