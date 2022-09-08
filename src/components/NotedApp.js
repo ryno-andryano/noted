@@ -35,6 +35,7 @@ class NotedApp extends React.Component {
     this.onOpenNavHandler = this.onOpenNavHandler.bind(this);
     this.onCloseNavHandler = this.onCloseNavHandler.bind(this);
     this.onQueryChangeHandler = this.onQueryChangeHandler.bind(this);
+    this.onSearchHandler = this.onSearchHandler.bind(this);
     this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
     this.onUnarchiveNoteHandler = this.onUnarchiveNoteHandler.bind(this);
     this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
@@ -59,6 +60,19 @@ class NotedApp extends React.Component {
 
   onQueryChangeHandler(query) {
     this.setState({query});
+    if (!query) {
+      this.updateNotesState();
+    }
+  }
+
+  onSearchHandler(isArchive) {
+    const notes = isArchive ? getArchivedNotes() : getActiveNotes();
+    const filteredNotes = notes.filter((note) =>
+      note.title.toLowerCase().includes(this.state.query.toLowerCase()),
+    );
+    isArchive
+      ? this.setState({archivedNotes: filteredNotes})
+      : this.setState({activeNotes: filteredNotes});
   }
 
   onArchiveNoteHandler(id) {
@@ -100,6 +114,7 @@ class NotedApp extends React.Component {
                   onArchive={this.onArchiveNoteHandler}
                   onDelete={this.onDeleteNoteHandler}
                   query={this.state.query}
+                  onSearch={this.onSearchHandler}
                   onQChange={this.onQueryChangeHandler}
                 />
               }
@@ -113,6 +128,7 @@ class NotedApp extends React.Component {
                   onUnarchive={this.onUnarchiveNoteHandler}
                   onDelete={this.onDeleteNoteHandler}
                   query={this.state.query}
+                  onSearch={this.onSearchHandler}
                   onQChange={this.onQueryChangeHandler}
                 />
               }

@@ -1,9 +1,15 @@
 import React from 'react';
 import {MdSearch} from 'react-icons/md';
 
-function SearchBar({query, onQChange}) {
+function SearchBar({isArchive, query, onQChange, onSearch}) {
   return (
-    <form className="search-bar">
+    <form
+      className="search-bar"
+      onSubmit={(event) => {
+        event.preventDefault();
+        onSearch(isArchive);
+      }}
+    >
       <input
         type="search"
         placeholder="Search note..."
