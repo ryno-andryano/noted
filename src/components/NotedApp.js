@@ -4,6 +4,7 @@ import Header from './Header';
 import NotesPage from '../pages/NotesPage';
 import AddNotePage from '../pages/AddNotePage';
 import ArchivePage from '../pages/ArchivePage';
+import NoteDetailPage from '../pages/NoteDetailPage';
 import Navigation from './Navigation';
 
 class NotedApp extends React.Component {
@@ -54,6 +55,7 @@ class NotedApp extends React.Component {
             <Route path="/" element={<NotesPage />} />
             <Route path="/add" element={<AddNotePage />} />
             <Route path="/archive" element={<ArchivePage />} />
+            <Route path="/detail/:id" element={<NoteDetailPage />} />
           </Routes>
         </main>
       </>
