@@ -136,6 +136,9 @@ html {
     top: 0;
     cursor: pointer;
     transition: background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
       background-color: #4ddafa;
@@ -374,6 +377,26 @@ html {
   }
 }
 
+.not-found {
+  height: calc(90vh - 118px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 50%;
+
+  &__head {
+    font-size: 80px;
+    position: relative;
+    top: 18px;
+  }
+
+  &__link {
+    color: $secondary;
+    text-decoration: inherit;
+  }
+}
+
 @media screen and (min-width: 540px) {
   .note-list {
     grid-template-columns: 1fr 1fr;
@@ -464,6 +487,23 @@ html {
   .add-form {
     &__body {
       height: 280px;
+    }
+  }
+
+  .not-found {
+    height: 80vh;
+
+    &__head {
+      font-size: 120px;
+      top: 30px;
+    }
+
+    &__description {
+      font-size: 30px;
+    }
+
+    &__link {
+      font-size: 24px;
     }
   }
 }

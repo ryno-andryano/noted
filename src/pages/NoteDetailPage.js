@@ -2,6 +2,7 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import {getNote} from '../utils/local-data';
 import NoteDetail from '../components/NoteDetail';
+import NotFoundPage from './NotFoundPage';
 import {MdChevronLeft} from 'react-icons/md';
 
 function NoteDetailPageWrapper() {
@@ -18,6 +19,10 @@ class NoteDetailPage extends React.Component {
   }
 
   render() {
+    if (this.state.note === undefined) {
+      return <NotFoundPage />;
+    }
+
     return (
       <section className="detail-page">
         <div className="detail-page__head">
