@@ -79,11 +79,6 @@ html {
     font-weight: 600;
     border-radius: 8px;
 
-    &:hover {
-      transition: transform 0.5s;
-      transform: translate(0, -2px);
-    }
-
     &:first-child {
       background-color: $primary;
       color: $dark;
@@ -91,11 +86,10 @@ html {
       transform: translate(-4px, 0);
       padding: 12px 4px;
       margin-top: 20px;
+      transition: background-color 0.3s;
 
       &:hover {
-        transition: transform 0.5s, background-color 0.5s;
         background-color: #4ddafa;
-        transform: translate(-4px, -2px);
       }
     }
   }
@@ -141,6 +135,11 @@ html {
     right: 0;
     top: 0;
     cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #4ddafa;
+    }
   }
   &__icon {
     color: $secondary;
@@ -190,15 +189,12 @@ html {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  color: inherit;
+  text-decoration: inherit;
 
   &:hover {
     transform: translate(0, -3px);
     box-shadow: 0px 3px 6px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  &__link {
-    color: inherit;
-    text-decoration: inherit;
   }
 
   &__title {
@@ -256,6 +252,67 @@ html {
   }
 }
 
+.detail-page {
+  width: 100%;
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__back-button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary;
+    transition: background-color 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #4ddafa;
+    }
+  }
+
+  &__back-icon {
+    color: $dark;
+  }
+
+  &__body {
+    margin-top: 20px;
+  }
+}
+
+.note-detail {
+  padding: 24px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.1);
+  color: $dark;
+
+  &__title {
+    font-size: 22px;
+    line-height: 120%;
+    text-align: center;
+  }
+
+  &__date {
+    display: block;
+    text-align: center;
+    margin-top: 2px;
+    font-size: 14px;
+    color: $grey;
+  }
+
+  &__body {
+    margin-top: 12px;
+    font-size: 16px;
+  }
+}
+
 @media screen and (min-width: 540px) {
   .note-list {
     grid-template-columns: 1fr 1fr;
@@ -301,10 +358,6 @@ html {
         transform: translate(-10px, 0);
         padding: 12px 10px;
         margin-top: 0;
-
-        &:hover {
-          transform: translate(-10px, -2px);
-        }
       }
     }
   }
@@ -332,6 +385,12 @@ html {
     }
   }
 
+  .detail-page {
+    &__body {
+      margin-top: 34px;
+    }
+  }
+
   .note-list {
     gap: 18px;
   }
@@ -344,6 +403,21 @@ html {
 @media screen and (min-width: 1080px) {
   .note-list {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+  .note-detail {
+    padding: 48px 40px;
+    &__title {
+      font-size: 24px;
+    }
+
+    &__date {
+      font-size: 16px;
+    }
+
+    &__body {
+      margin-top: 24px;
+      font-size: 18px;
+    }
   }
 }
 

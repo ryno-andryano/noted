@@ -7,7 +7,7 @@ function Header({nav, onOpenNav, onCloseNav}) {
     <header className="header">
       <div className="header__inner">
         <Link to="/" className="header__logo" onClick={onCloseNav}>
-          <img className="header__image" src="./images/logo.png" alt=""></img>
+          <img className="header__image" src="/images/logo.png" alt=""></img>
         </Link>
         <button
           className="header__menu-button"
