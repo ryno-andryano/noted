@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {useParams} from 'react-router-dom';
 import {getNote} from '../utils/local-data';
 import NoteDetail from '../components/NoteDetail';
@@ -44,6 +45,10 @@ class NoteDetailPage extends React.Component {
     );
   }
 }
+
+NoteDetailPage.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default NoteDetailPageWrapper;
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import formatDate from '../utils/format-date';
 
 function NoteDetail({note}) {
@@ -14,6 +15,10 @@ function NoteDetail({note}) {
     </div>
   );
 }
+
+NoteDetail.propTypes = {
+  note: PropTypes.object.isRequired,
+};
 
 export default NoteDetail;
 

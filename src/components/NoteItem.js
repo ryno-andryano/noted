@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {
   MdOutlineArchive,
@@ -63,6 +64,17 @@ function NoteItem({
     </Link>
   );
 }
+
+NoteItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  isArchive: PropTypes.bool,
+  onArchive: PropTypes.func,
+  onUnarchive: PropTypes.func,
+  onDelete: PropTypes.func.isRequired,
+};
 
 export default NoteItem;
 

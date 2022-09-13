@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {MdSearch} from 'react-icons/md';
 
 function SearchBar({isArchive, input, onInputChange, onSearch}) {
@@ -23,6 +24,13 @@ function SearchBar({isArchive, input, onInputChange, onSearch}) {
     </form>
   );
 }
+
+SearchBar.propTypes = {
+  isArchive: PropTypes.bool,
+  input: PropTypes.string,
+  onInputChange: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
+};
 
 export default SearchBar;
 

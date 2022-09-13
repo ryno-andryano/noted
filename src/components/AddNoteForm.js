@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
 
 function AddNoteForm({title, body, onTitleChange, onBodyChange, onAddNote}) {
@@ -25,6 +26,7 @@ function AddNoteForm({title, body, onTitleChange, onBodyChange, onAddNote}) {
         placeholder="Write your note here..."
         value={body}
         onChange={(event) => onBodyChange(event.target.value)}
+        required
       ></textarea>
       <div className="add-form__action">
         <button
@@ -43,6 +45,14 @@ function AddNoteForm({title, body, onTitleChange, onBodyChange, onAddNote}) {
     </form>
   );
 }
+
+AddNoteForm.propTypes = {
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  onTitleChange: PropTypes.func.isRequired,
+  onBodyChange: PropTypes.func.isRequired,
+  onAddNote: PropTypes.func.isRequired,
+};
 
 export default AddNoteForm;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {useSearchParams} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
 import EmptyNotes from '../components/EmptyNotes';
@@ -88,5 +89,10 @@ class NotesPage extends React.Component {
     );
   }
 }
+
+NotesPage.propTypes = {
+  defaultQuery: PropTypes.string,
+  queryChange: PropTypes.func.isRequired,
+};
 
 export default NotesPageWrapper;

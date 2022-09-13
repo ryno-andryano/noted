@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {MdOutlineStickyNote2, MdOutlineArchive} from 'react-icons/md';
 
 function EmptyNotes({isArchive}) {
@@ -18,6 +19,10 @@ function EmptyNotes({isArchive}) {
     </div>
   );
 }
+
+EmptyNotes.propTypes = {
+  isArchive: PropTypes.bool,
+};
 
 export default EmptyNotes;
 

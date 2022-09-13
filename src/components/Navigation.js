@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {
   MdAddCircleOutline,
@@ -26,6 +27,11 @@ function Navigation({nav, onCloseNav}) {
     </nav>
   );
 }
+
+Navigation.propTypes = {
+  nav: PropTypes.bool.isRequired,
+  onCloseNav: PropTypes.func.isRequired,
+};
 
 export default Navigation;
 

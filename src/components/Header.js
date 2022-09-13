@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {MdMenu, MdClose} from 'react-icons/md';
 
@@ -23,6 +24,12 @@ function Header({nav, onOpenNav, onCloseNav}) {
     </header>
   );
 }
+
+Header.propTypes = {
+  nav: PropTypes.bool.isRequired,
+  onOpenNav: PropTypes.func.isRequired,
+  onCloseNav: PropTypes.func.isRequired,
+};
 
 export default Header;
 
