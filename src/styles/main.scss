@@ -109,6 +109,85 @@ html {
   padding: 24px 18px;
 }
 
+.main.welcome {
+  padding: 24px 36px;
+  width: 100vw;
+  min-height: 100vh;
+  margin-top: 0;
+  position: absolute;
+  color: $dark;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__illustration {
+    width: 240px;
+    margin-bottom: 12px;
+  }
+}
+
+.login-page,
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__logo {
+    width: 200px;
+  }
+
+  &__form {
+    margin-top: 32px;
+    width: 100%;
+  }
+
+  &__email,
+  &__password,
+  &__name {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    font-size: 20px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid $grey;
+    color: $dark;
+  }
+
+  &__button {
+    width: 100%;
+    background-color: $primary;
+    font-size: 20px;
+    padding: 6px 0;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    color: $dark;
+    transition: background-color 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #4ddafa;
+    }
+  }
+
+  &__message {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 14px;
+  }
+}
+
 .search-bar {
   margin-top: 16px;
   width: 100%;
@@ -506,6 +585,22 @@ html {
       font-size: 24px;
     }
   }
+
+  .welcome-page {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 600px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 6px 4px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    padding: 40px 48px;
+    gap: 48px;
+
+    &__illustration {
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
 }
 
 @media screen and (min-width: 1080px) {
@@ -551,12 +646,22 @@ html {
       padding: 10px 14px;
     }
   }
+
+  .welcome-page {
+    width: 800px;
+  }
 }
 
 @media screen and (min-width: 1440px) {
   .note-list {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 22px;
+  }
+
+  .welcome-page {
+    width: 1000px;
+    padding: 60px 72px;
+    gap: 72px;
   }
 }
 
@@ -565,4 +670,3 @@ html {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 }
-

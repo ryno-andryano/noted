@@ -7,6 +7,7 @@ import ArchivePage from '../pages/ArchivePage';
 import NoteDetailPage from '../pages/NoteDetailPage';
 import Navigation from './Navigation';
 import NotFoundPage from '../pages/NotFoundPage';
+import WelcomePage from '../pages/WelcomePage';
 
 class NotedApp extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class NotedApp extends React.Component {
 
     this.state = {
       nav: window.innerWidth >= 768 ? true : false,
+      user: null,
     };
 
     window.addEventListener('resize', () => {
@@ -41,14 +43,15 @@ class NotedApp extends React.Component {
   }
 
   render() {
-    return (
+    return this.state.user === null ? (
+      <WelcomePage />
+    ) : (
       <>
         <Header
           nav={this.state.nav}
           onOpenNav={this.onOpenNavHandler}
           onCloseNav={this.onCloseNavHandler}
         />
-
         <Navigation nav={this.state.nav} onCloseNav={this.onCloseNavHandler} />
 
         <main className="main" onClick={this.onCloseNavHandler}>
