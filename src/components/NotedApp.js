@@ -31,6 +31,7 @@ class NotedApp extends React.Component {
     this.onOpenNavHandler = this.onOpenNavHandler.bind(this);
     this.onCloseNavHandler = this.onCloseNavHandler.bind(this);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
+    this.onLogout = this.onLogout.bind(this);
   }
 
   onOpenNavHandler(event) {
@@ -56,6 +57,15 @@ class NotedApp extends React.Component {
     });
   }
 
+  onLogout() {
+    this.setState(() => {
+      return {
+        user: null,
+      };
+    });
+    putAccessToken('');
+  }
+
   render() {
     if (this.state.initializing === true) {
       return null;
@@ -70,7 +80,11 @@ class NotedApp extends React.Component {
           onOpenNav={this.onOpenNavHandler}
           onCloseNav={this.onCloseNavHandler}
         />
-        <Navigation nav={this.state.nav} onCloseNav={this.onCloseNavHandler} />
+        <Navigation
+          nav={this.state.nav}
+          onCloseNav={this.onCloseNavHandler}
+          onLogout={this.onLogout}
+        />
 
         <main className="main" onClick={this.onCloseNavHandler}>
           <Routes>
