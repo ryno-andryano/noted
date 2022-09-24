@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useParams} from 'react-router-dom';
-import {getNote} from '../utils/local-data';
+import {getNote} from '../utils/network-data';
 import NoteDetail from '../components/NoteDetail';
 import NotFoundPage from './NotFoundPage';
 import {MdChevronLeft} from 'react-icons/md';
@@ -15,8 +15,18 @@ class NoteDetailPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      note: getNote(props.id),
+      note: {},
     };
+  }
+
+  async componentDidMount() {
+    const {data} = await getNote(this.props.id);
+
+    this.setState(() => {
+      return {
+        note: data,
+      };
+    });
   }
 
   render() {

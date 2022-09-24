@@ -1,7 +1,7 @@
 import React from 'react';
 import AddNoteForm from '../components/AddNoteForm';
 import {MdChevronLeft} from 'react-icons/md';
-import {addNote} from '../utils/local-data';
+import {addNote} from '../utils/network-data';
 
 class AddNotePage extends React.Component {
   constructor(props) {
@@ -24,8 +24,8 @@ class AddNotePage extends React.Component {
     this.setState({body});
   }
 
-  onAddNoteHandler() {
-    addNote({title: this.state.title, body: this.state.body});
+  async onAddNoteHandler() {
+    await addNote({title: this.state.title, body: this.state.body});
     this.setState({title: '', body: ''});
   }
 

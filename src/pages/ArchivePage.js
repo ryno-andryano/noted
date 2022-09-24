@@ -4,7 +4,11 @@ import {useSearchParams} from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
 import EmptyNotes from '../components/EmptyNotes';
-import {getArchivedNotes, unarchiveNote, deleteNote} from '../utils/local-data';
+import {
+  getArchivedNotes,
+  unarchiveNote,
+  deleteNote,
+} from '../utils/network-data';
 
 function ArchivePageWrapper() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,7 +26,7 @@ class ArchivePage extends React.Component {
     super(props);
 
     this.state = {
-      notes: getArchivedNotes(),
+      notes: [],
       input: props.defaultQuery || '',
       query: props.defaultQuery || '',
     };
@@ -31,6 +35,21 @@ class ArchivePage extends React.Component {
     this.onSearchHandler = this.onSearchHandler.bind(this);
     this.onUnarchiveNoteHandler = this.onUnarchiveNoteHandler.bind(this);
     this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
+    this.updateNotes = this.updateNotes.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateNotes();
+  }
+
+  async updateNotes() {
+    const {data} = await getArchivedNotes();
+
+    this.setState(() => {
+      return {
+        notes: data,
+      };
+    });
   }
 
   onInputChangeHandler(input) {
@@ -46,14 +65,14 @@ class ArchivePage extends React.Component {
     this.props.queryChange(this.state.input);
   }
 
-  onUnarchiveNoteHandler(id) {
-    unarchiveNote(id);
-    this.setState({notes: getArchivedNotes()});
+  async onUnarchiveNoteHandler(id) {
+    await unarchiveNote(id);
+    this.updateNotes();
   }
 
-  onDeleteNoteHandler(id) {
-    deleteNote(id);
-    this.setState({notes: getArchivedNotes()});
+  async onDeleteNoteHandler(id) {
+    await deleteNote(id);
+    this.updateNotes();
   }
 
   render() {
