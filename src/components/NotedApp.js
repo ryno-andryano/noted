@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
+import {putAccessToken, getUserLogged} from '../utils/network-data';
 import Header from './Header';
 import NotesPage from '../pages/NotesPage';
 import AddNotePage from '../pages/AddNotePage';
@@ -16,6 +17,7 @@ class NotedApp extends React.Component {
     this.state = {
       nav: window.innerWidth >= 768 ? true : false,
       user: null,
+      initializing: true,
     };
 
     window.addEventListener('resize', () => {
@@ -28,6 +30,7 @@ class NotedApp extends React.Component {
 
     this.onOpenNavHandler = this.onOpenNavHandler.bind(this);
     this.onCloseNavHandler = this.onCloseNavHandler.bind(this);
+    this.onLoginSuccess = this.onLoginSuccess.bind(this);
   }
 
   onOpenNavHandler(event) {
@@ -42,9 +45,24 @@ class NotedApp extends React.Component {
     }
   }
 
+  async onLoginSuccess({accessToken}) {
+    putAccessToken(accessToken);
+    const {data} = await getUserLogged();
+
+    this.setState(() => {
+      return {
+        user: data,
+      };
+    });
+  }
+
   render() {
+    if (this.state.initializing === true) {
+      return null;
+    }
+
     return this.state.user === null ? (
-      <WelcomePage />
+      <WelcomePage onLoginSuccess={this.onLoginSuccess} />
     ) : (
       <>
         <Header
@@ -65,6 +83,16 @@ class NotedApp extends React.Component {
         </main>
       </>
     );
+  }
+
+  async componentDidMount() {
+    const {data} = await getUserLogged();
+    this.setState(() => {
+      return {
+        user: data,
+        initializing: false,
+      };
+    });
   }
 }
 

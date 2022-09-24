@@ -1,7 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import {register} from '../utils/network-data';
 
 function SignUpForm() {
+  const navigate = useNavigate();
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -18,10 +20,19 @@ function SignUpForm() {
     setPassword(inputPassword);
   }
 
+  async function onSignUpHandler(event) {
+    event.preventDefault();
+
+    const {error} = await register({name, email, password});
+    if (!error) {
+      navigate('/');
+    }
+  }
+
   return (
     <section className="signup-page">
       <img className="signup-page__logo" src="/images/logo.png" alt=""></img>
-      <form className="signup-page__form">
+      <form className="signup-page__form" onSubmit={onSignUpHandler}>
         <input
           className="signup-page__name"
           type="text"

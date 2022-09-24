@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {login} from '../utils/network-data';
 
-function LoginForm() {
+function LoginForm({onLoginSuccess}) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -13,10 +14,19 @@ function LoginForm() {
     setPassword(inputPassword);
   }
 
+  async function onLoginHandler(event) {
+    event.preventDefault();
+    const {error, data} = await login({email, password});
+
+    if (!error) {
+      onLoginSuccess(data);
+    }
+  }
+
   return (
     <section className="login-page">
       <img className="login-page__logo" src="/images/logo.png" alt=""></img>
-      <form className="login-page__form">
+      <form className="login-page__form" onSubmit={onLoginHandler}>
         <input
           className="login-page__email"
           type="email"
