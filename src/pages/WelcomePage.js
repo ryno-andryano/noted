@@ -13,7 +13,7 @@ function WelcomePage() {
           alt=""
         ></img>
         <Routes>
-          <Route path="/login" element={<LoginForm />} />
+          <Route path="/*" element={<LoginForm />} />
           <Route path="/sign-up" element={<SignUpForm />} />
         </Routes>
       </div>
