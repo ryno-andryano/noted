@@ -10,83 +10,72 @@ import Navigation from './Navigation';
 import NotFoundPage from '../pages/NotFoundPage';
 import WelcomePage from '../pages/WelcomePage';
 
-class NotedApp extends React.Component {
-  constructor(props) {
-    super(props);
+function NotedApp() {
+  const [nav, setNav] = React.useState(window.innerWidth >= 768 ? true : false);
+  const [user, setUser] = React.useState(null);
+  const [initializing, setInitializing] = React.useState(true);
 
-    this.state = {
-      nav: window.innerWidth >= 768 ? true : false,
-      user: null,
-      initializing: true,
-    };
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) {
+      nav === false && setNav({nav: true});
+    } else {
+      nav === true && setNav({nav: false});
+    }
+  });
 
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 768) {
-        this.state.nav === false && this.setState({nav: true});
-      } else {
-        this.state.nav === true && this.setState({nav: false});
-      }
-    });
+  React.useEffect(() => {
+    async function getUser() {
+      const {data} = await getUserLogged();
+      setUser(data);
+      setInitializing(false);
+    }
+    getUser();
+  }, []);
 
-    this.onOpenNavHandler = this.onOpenNavHandler.bind(this);
-    this.onCloseNavHandler = this.onCloseNavHandler.bind(this);
-    this.onLoginSuccess = this.onLoginSuccess.bind(this);
-    this.onLogout = this.onLogout.bind(this);
-  }
-
-  onOpenNavHandler(event) {
+  function onOpenNavHandler(event) {
     event.stopPropagation();
-    this.setState({nav: true});
+    setNav(true);
   }
 
-  onCloseNavHandler(event) {
+  function onCloseNavHandler(event) {
     event.stopPropagation();
     if (window.innerWidth < 768) {
-      this.setState({nav: false});
+      setNav(false);
     }
   }
 
-  async onLoginSuccess({accessToken}) {
+  async function onLoginSuccess({accessToken}) {
     putAccessToken(accessToken);
     const {data} = await getUserLogged();
-
-    this.setState(() => {
-      return {
-        user: data,
-      };
-    });
+    setUser(data);
   }
 
-  onLogout() {
-    this.setState(() => {
-      return {
-        user: null,
-      };
-    });
+  function onLogout() {
+    setUser(null);
     putAccessToken('');
   }
 
-  render() {
-    if (this.state.initializing === true) {
-      return null;
-    }
+  if (initializing === true) {
+    return null;
+  }
 
-    return this.state.user === null ? (
-      <WelcomePage onLoginSuccess={this.onLoginSuccess} />
-    ) : (
+  if (user === null) {
+    return <WelcomePage onLoginSuccess={onLoginSuccess} />;
+  } else {
+    return (
       <>
         <Header
-          nav={this.state.nav}
-          onOpenNav={this.onOpenNavHandler}
-          onCloseNav={this.onCloseNavHandler}
+          nav={nav}
+          onOpenNav={onOpenNavHandler}
+          onCloseNav={onCloseNavHandler}
         />
         <Navigation
-          nav={this.state.nav}
-          onCloseNav={this.onCloseNavHandler}
-          onLogout={this.onLogout}
+          nav={nav}
+          onCloseNav={onCloseNavHandler}
+          onLogout={onLogout}
         />
 
-        <main className="main" onClick={this.onCloseNavHandler}>
+        <main className="main" onClick={onCloseNavHandler}>
           <Routes>
             <Route path="/" element={<NotesPage />} />
             <Route path="/add" element={<AddNotePage />} />
@@ -97,16 +86,6 @@ class NotedApp extends React.Component {
         </main>
       </>
     );
-  }
-
-  async componentDidMount() {
-    const {data} = await getUserLogged();
-    this.setState(() => {
-      return {
-        user: data,
-        initializing: false,
-      };
-    });
   }
 }
 

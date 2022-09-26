@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useNavigate} from 'react-router-dom';
 
 function AddNoteForm({title, body, onTitleChange, onBodyChange, onAddNote}) {
-  const navigate = useNavigate();
-
   return (
     <form
       className="add-form"
       onSubmit={(event) => {
         event.preventDefault();
         onAddNote();
-        navigate('/');
       }}
     >
       <input
@@ -55,4 +51,3 @@ AddNoteForm.propTypes = {
 };
 
 export default AddNoteForm;
-

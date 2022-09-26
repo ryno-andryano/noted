@@ -21,4 +21,3 @@ NoteDetail.propTypes = {
 };
 
 export default NoteDetail;
-
