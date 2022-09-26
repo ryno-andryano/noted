@@ -1,8 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import ThemeContext from '../contexts/ThemeContext';
 import {login} from '../utils/network-data';
 
 function LoginForm({onLoginSuccess}) {
+  const {theme} = React.useContext(ThemeContext);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -25,7 +27,13 @@ function LoginForm({onLoginSuccess}) {
 
   return (
     <section className="login-page">
-      <img className="login-page__logo" src="/images/logo.png" alt=""></img>
+      <img
+        className="login-page__logo"
+        src={
+          theme === 'light' ? '/images/logo.png' : '/images/logo-inverse.png'
+        }
+        alt=""
+      ></img>
       <form className="login-page__form" onSubmit={onLoginHandler}>
         <input
           className="login-page__email"
@@ -48,7 +56,10 @@ function LoginForm({onLoginSuccess}) {
         </button>
       </form>
       <p className="login-page__message">
-        Don't have an account? <Link to="/sign-up">Sign Up</Link>
+        Don't have an account?{' '}
+        <Link to="/sign-up" className="login-page__link">
+          Sign Up
+        </Link>
       </p>
     </section>
   );

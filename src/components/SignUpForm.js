@@ -1,8 +1,10 @@
 import React from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import ThemeContext from '../contexts/ThemeContext';
 import {register} from '../utils/network-data';
 
 function SignUpForm() {
+  const {theme} = React.useContext(ThemeContext);
   const navigate = useNavigate();
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -31,7 +33,13 @@ function SignUpForm() {
 
   return (
     <section className="signup-page">
-      <img className="signup-page__logo" src="/images/logo.png" alt=""></img>
+      <img
+        className="signup-page__logo"
+        src={
+          theme === 'light' ? '/images/logo.png' : '/images/logo-inverse.png'
+        }
+        alt=""
+      ></img>
       <form className="signup-page__form" onSubmit={onSignUpHandler}>
         <input
           className="signup-page__name"
@@ -62,7 +70,10 @@ function SignUpForm() {
         </button>
       </form>
       <p className="signup-page__message">
-        Already have an account? <Link to="/">Login</Link>
+        Already have an account?{' '}
+        <Link to="/" className="signup-page__link">
+          Login
+        </Link>
       </p>
     </section>
   );
