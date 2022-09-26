@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import ThemeContext from '../contexts/ThemeContext';
 import {
   MdAddCircleOutline,
   MdOutlineStickyNote2,
   MdOutlineArchive,
   MdLogout,
+  MdDarkMode,
+  MdLightMode,
 } from 'react-icons/md';
 
 function Navigation({nav, onCloseNav, onLogout}) {
+  const {theme, toggleTheme} = React.useContext(ThemeContext);
+
   return (
     <nav className={nav ? 'navigation' : 'navigation hidden'}>
       <div className="navigation__top-wrapper">
@@ -26,12 +31,38 @@ function Navigation({nav, onCloseNav, onLogout}) {
           <MdOutlineArchive className="navigation__icon" />
           Archive
         </Link>
-      </div>
-      <div className="navigation__bottom-wrapper">
         <button className="navigation__action" onClick={onLogout}>
           <MdLogout className="navigation__icon" />
           Logout
         </button>
+      </div>
+      <div className="navigation__bottom-wrapper">
+        <div className="navigation__switch-wrapper">
+          EN
+          <label className="navigation__switch">
+            <input
+              type="checkbox"
+              className="navigation__checkbox"
+              id="language"
+            />
+            <span className="navigation__slider"></span>
+          </label>
+          ID
+        </div>
+        <div className="navigation__switch-wrapper">
+          <MdLightMode size={22} />
+          <label className="navigation__switch">
+            <input
+              type="checkbox"
+              className="navigation__checkbox"
+              id="theme"
+              checked={theme === 'light' ? false : true}
+              onChange={toggleTheme}
+            />
+            <span className="navigation__slider"></span>
+          </label>
+          <MdDarkMode size={22} />
+        </div>
       </div>
     </nav>
   );

@@ -9,17 +9,21 @@ import NoteDetailPage from '../pages/NoteDetailPage';
 import Navigation from './Navigation';
 import NotFoundPage from '../pages/NotFoundPage';
 import WelcomePage from '../pages/WelcomePage';
+import ThemeContext from '../contexts/ThemeContext';
 
 function NotedApp() {
   const [nav, setNav] = React.useState(window.innerWidth >= 768 ? true : false);
   const [user, setUser] = React.useState(null);
+  const [theme, setTheme] = React.useState(
+    localStorage.getItem('theme') || 'light',
+  );
   const [initializing, setInitializing] = React.useState(true);
 
   window.addEventListener('resize', () => {
-    if (window.innerWidth >= 768) {
-      nav === false && setNav({nav: true});
-    } else {
-      nav === true && setNav({nav: false});
+    if (window.innerWidth >= 768 && nav === false) {
+      setNav(true);
+    } else if (window.innerWidth < 768 && nav === true) {
+      setNav(false);
     }
   });
 
@@ -31,6 +35,10 @@ function NotedApp() {
     }
     getUser();
   }, []);
+
+  React.useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   function onOpenNavHandler(event) {
     event.stopPropagation();
@@ -55,38 +63,55 @@ function NotedApp() {
     putAccessToken('');
   }
 
+  function toggleTheme() {
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      return newTheme;
+    });
+  }
+
+  const themeContextValue = React.useMemo(() => {
+    return {
+      theme,
+      toggleTheme,
+    };
+  }, [theme]);
+
   if (initializing === true) {
     return null;
   }
 
-  if (user === null) {
-    return <WelcomePage onLoginSuccess={onLoginSuccess} />;
-  } else {
-    return (
-      <>
-        <Header
-          nav={nav}
-          onOpenNav={onOpenNavHandler}
-          onCloseNav={onCloseNavHandler}
-        />
-        <Navigation
-          nav={nav}
-          onCloseNav={onCloseNavHandler}
-          onLogout={onLogout}
-        />
+  return (
+    <ThemeContext.Provider value={themeContextValue}>
+      {user === null ? (
+        <WelcomePage onLoginSuccess={onLoginSuccess} />
+      ) : (
+        <>
+          <Header
+            nav={nav}
+            onOpenNav={onOpenNavHandler}
+            onCloseNav={onCloseNavHandler}
+          />
+          <Navigation
+            nav={nav}
+            onCloseNav={onCloseNavHandler}
+            onLogout={onLogout}
+          />
 
-        <main className="main" onClick={onCloseNavHandler}>
-          <Routes>
-            <Route path="/" element={<NotesPage />} />
-            <Route path="/add" element={<AddNotePage />} />
-            <Route path="/archive" element={<ArchivePage />} />
-            <Route path="/detail/:id" element={<NoteDetailPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </main>
-      </>
-    );
-  }
+          <main className="main" onClick={onCloseNavHandler}>
+            <Routes>
+              <Route path="/" element={<NotesPage />} />
+              <Route path="/add" element={<AddNotePage />} />
+              <Route path="/archive" element={<ArchivePage />} />
+              <Route path="/detail/:id" element={<NoteDetailPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </main>
+        </>
+      )}
+    </ThemeContext.Provider>
+  );
 }
 
 export default NotedApp;
