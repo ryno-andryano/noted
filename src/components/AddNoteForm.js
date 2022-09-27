@@ -19,13 +19,13 @@ function AddNoteForm({title, body, onTitleChange, onBodyChange, onAddNote}) {
         className="add-form__title"
         placeholder={content[language].title}
         value={title}
-        onChange={(event) => onTitleChange(event.target.value)}
+        onChange={onTitleChange}
       ></input>
       <textarea
         className="add-form__body"
         placeholder={content[language].body}
         value={body}
-        onChange={(event) => onBodyChange(event.target.value)}
+        onChange={onBodyChange}
         required
       ></textarea>
       <div className="add-form__action">

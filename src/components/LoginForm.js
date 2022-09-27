@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import useInput from '../hooks/useInput';
 import ThemeContext from '../contexts/ThemeContext';
 import LanguageContext from '../contexts/LanguageContext';
 import {LoginFormContent as content} from '../utils/content';
@@ -9,16 +10,8 @@ import {login} from '../utils/network-data';
 function LoginForm({onLoginSuccess}) {
   const {theme} = React.useContext(ThemeContext);
   const {language} = React.useContext(LanguageContext);
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  function onEmailChange(inputEmail) {
-    setEmail(inputEmail);
-  }
-
-  function onPasswordChange(inputPassword) {
-    setPassword(inputPassword);
-  }
+  const [email, onEmailChange] = useInput('');
+  const [password, onPasswordChange] = useInput('');
 
   async function onLoginHandler(event) {
     event.preventDefault();
@@ -44,7 +37,7 @@ function LoginForm({onLoginSuccess}) {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(event) => onEmailChange(event.target.value)}
+          onChange={onEmailChange}
           required
         ></input>
         <input
@@ -52,7 +45,7 @@ function LoginForm({onLoginSuccess}) {
           type="password"
           placeholder={content[language].password}
           value={password}
-          onChange={(event) => onPasswordChange(event.target.value)}
+          onChange={onPasswordChange}
           required
         ></input>
         <button className="login-page__button" type="submit">

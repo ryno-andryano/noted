@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import useInput from '../hooks/useInput';
 import ThemeContext from '../contexts/ThemeContext';
 import LanguageContext from '../contexts/LanguageContext';
 import {SignUpFormContent as content} from '../utils/content';
@@ -9,21 +10,9 @@ function SignUpForm() {
   const {theme} = React.useContext(ThemeContext);
   const {language} = React.useContext(LanguageContext);
   const navigate = useNavigate();
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  function onNameChange(inputName) {
-    setName(inputName);
-  }
-
-  function onEmailChange(inputEmail) {
-    setEmail(inputEmail);
-  }
-
-  function onPasswordChange(inputPassword) {
-    setPassword(inputPassword);
-  }
+  const [name, onNameChange] = useInput('');
+  const [email, onEmailChange] = useInput('');
+  const [password, onPasswordChange] = useInput('');
 
   async function onSignUpHandler(event) {
     event.preventDefault();
@@ -49,7 +38,7 @@ function SignUpForm() {
           type="text"
           placeholder={content[language].name}
           value={name}
-          onChange={(event) => onNameChange(event.target.value)}
+          onChange={onNameChange}
           required
         ></input>
         <input
@@ -57,7 +46,7 @@ function SignUpForm() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(event) => onEmailChange(event.target.value)}
+          onChange={onEmailChange}
           required
         ></input>
         <input
@@ -65,7 +54,7 @@ function SignUpForm() {
           type="password"
           placeholder={content[language].password}
           value={password}
-          onChange={(event) => onPasswordChange(event.target.value)}
+          onChange={onPasswordChange}
           required
         ></input>
         <button className="signup-page__button" type="submit">

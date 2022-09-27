@@ -1,5 +1,6 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
+import useInput from '../hooks/useInput';
 import LanguageContext from '../contexts/LanguageContext';
 import {PagesContent as content} from '../utils/content';
 import AddNoteForm from '../components/AddNoteForm';
@@ -8,17 +9,9 @@ import {addNote} from '../utils/network-data';
 
 function AddNotePage() {
   const {language} = React.useContext(LanguageContext);
-  const [title, setTitle] = React.useState('');
-  const [body, setBody] = React.useState('');
+  const [title, onTitleChange] = useInput('');
+  const [body, onBodyChange] = useInput('');
   const navigate = useNavigate();
-
-  function onTitleChangeHandler(title) {
-    setTitle(title);
-  }
-
-  function onBodyChangeHandler(body) {
-    setBody(body);
-  }
 
   async function onAddNoteHandler() {
     await addNote({title, body});
@@ -43,8 +36,8 @@ function AddNotePage() {
         <AddNoteForm
           title={title}
           body={body}
-          onTitleChange={onTitleChangeHandler}
-          onBodyChange={onBodyChangeHandler}
+          onTitleChange={onTitleChange}
+          onBodyChange={onBodyChange}
           onAddNote={onAddNoteHandler}
         />
       </div>
