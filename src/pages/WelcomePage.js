@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
 
@@ -23,6 +24,10 @@ function WelcomePage({onLoginSuccess}) {
     </main>
   );
 }
+
+WelcomePage.propTypes = {
+  onLoginSuccess: PropTypes.func.isRequired,
+};
 
 export default WelcomePage;
 

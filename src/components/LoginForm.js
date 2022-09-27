@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import ThemeContext from '../contexts/ThemeContext';
 import LanguageContext from '../contexts/LanguageContext';
 import {LoginFormContent as content} from '../utils/content';
@@ -67,6 +68,10 @@ function LoginForm({onLoginSuccess}) {
     </section>
   );
 }
+
+LoginForm.propTypes = {
+  onLoginSuccess: PropTypes.func.isRequired,
+};
 
 export default LoginForm;
 

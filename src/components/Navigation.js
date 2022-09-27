@@ -76,6 +76,7 @@ function Navigation({nav, onCloseNav, onLogout}) {
 Navigation.propTypes = {
   nav: PropTypes.bool.isRequired,
   onCloseNav: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
 };
 
 export default Navigation;
