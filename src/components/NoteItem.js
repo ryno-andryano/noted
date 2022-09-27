@@ -77,4 +77,3 @@ NoteItem.propTypes = {
 };
 
 export default NoteItem;
-

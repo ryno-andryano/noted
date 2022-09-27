@@ -2,11 +2,14 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import {getNote} from '../utils/network-data';
+import LanguageContext from '../contexts/LanguageContext';
+import {PagesContent as content} from '../utils/content';
 import NoteDetail from '../components/NoteDetail';
 import NotFoundPage from './NotFoundPage';
 import {MdChevronLeft} from 'react-icons/md';
 
 function NoteDetailPage() {
+  const {language} = React.useContext(LanguageContext);
   const [note, setNote] = React.useState('');
   const {id} = useParams();
   const navigate = useNavigate();
@@ -30,7 +33,7 @@ function NoteDetailPage() {
   return (
     <section className="detail-page">
       <div className="detail-page__head">
-        <h2>Note Detail</h2>
+        <h2>{content[language].detail}</h2>
         <button
           className="detail-page__back-button"
           title="Back"

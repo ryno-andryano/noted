@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import ThemeContext from '../contexts/ThemeContext';
+import LanguageContext from '../contexts/LanguageContext';
+import {NavigationContent as content} from '../utils/content';
 import {
   MdAddCircleOutline,
   MdOutlineStickyNote2,
@@ -13,27 +15,28 @@ import {
 
 function Navigation({nav, onCloseNav, onLogout}) {
   const {theme, toggleTheme} = React.useContext(ThemeContext);
+  const {language, toggleLanguage} = React.useContext(LanguageContext);
 
   return (
     <nav className={nav ? 'navigation' : 'navigation hidden'}>
       <div className="navigation__top-wrapper">
         <Link to="/add" className="navigation__link" onClick={onCloseNav}>
           <MdAddCircleOutline className="navigation__icon" />
-          Add Note
+          {content[language].add}
         </Link>
 
         <Link to="/" className="navigation__link" onClick={onCloseNav}>
           <MdOutlineStickyNote2 className="navigation__icon" />
-          Notes
+          {content[language].notes}
         </Link>
 
         <Link to="/archive" className="navigation__link" onClick={onCloseNav}>
           <MdOutlineArchive className="navigation__icon" />
-          Archive
+          {content[language].archive}
         </Link>
         <button className="navigation__action" onClick={onLogout}>
           <MdLogout className="navigation__icon" />
-          Logout
+          {content[language].logout}
         </button>
       </div>
       <div className="navigation__bottom-wrapper">
@@ -44,6 +47,8 @@ function Navigation({nav, onCloseNav, onLogout}) {
               type="checkbox"
               className="navigation__checkbox"
               id="language"
+              checked={language === 'EN' ? false : true}
+              onChange={toggleLanguage}
             />
             <span className="navigation__slider"></span>
           </label>

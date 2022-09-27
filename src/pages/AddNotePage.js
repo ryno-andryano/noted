@@ -1,10 +1,13 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
+import LanguageContext from '../contexts/LanguageContext';
+import {PagesContent as content} from '../utils/content';
 import AddNoteForm from '../components/AddNoteForm';
 import {MdChevronLeft} from 'react-icons/md';
 import {addNote} from '../utils/network-data';
 
 function AddNotePage() {
+  const {language} = React.useContext(LanguageContext);
   const [title, setTitle] = React.useState('');
   const [body, setBody] = React.useState('');
   const navigate = useNavigate();
@@ -25,7 +28,7 @@ function AddNotePage() {
   return (
     <section className="add-page">
       <div className="add-page__head">
-        <h2>Add Note</h2>
+        <h2>{content[language].add}</h2>
         <button
           className="add-page__back-button"
           title="Back"

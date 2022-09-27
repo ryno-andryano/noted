@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import LanguageContext from '../contexts/LanguageContext';
+import {SearchBarContent as content} from '../utils/content';
 import {MdSearch} from 'react-icons/md';
 
 function SearchBar({input, onInputChange, onSearch}) {
+  const {language} = React.useContext(LanguageContext);
+
   return (
     <form
       className="search-bar"
@@ -13,7 +17,7 @@ function SearchBar({input, onInputChange, onSearch}) {
     >
       <input
         type="search"
-        placeholder="Search note..."
+        placeholder={content[language].search}
         className="search-bar__input"
         value={input}
         onChange={(event) => onInputChange(event.target.value)}

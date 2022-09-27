@@ -10,12 +10,16 @@ import Navigation from './Navigation';
 import NotFoundPage from '../pages/NotFoundPage';
 import WelcomePage from '../pages/WelcomePage';
 import ThemeContext from '../contexts/ThemeContext';
+import LanguageContext from '../contexts/LanguageContext';
 
 function NotedApp() {
   const [nav, setNav] = React.useState(window.innerWidth >= 768 ? true : false);
   const [user, setUser] = React.useState(null);
   const [theme, setTheme] = React.useState(
     localStorage.getItem('theme') || 'light',
+  );
+  const [language, setLanguage] = React.useState(
+    localStorage.getItem('language') || 'EN',
   );
   const [initializing, setInitializing] = React.useState(true);
 
@@ -71,6 +75,14 @@ function NotedApp() {
     });
   }
 
+  function toggleLanguage() {
+    setLanguage((prevLanguage) => {
+      const newLanguage = prevLanguage === 'EN' ? 'ID' : 'EN';
+      localStorage.setItem('language', newLanguage);
+      return newLanguage;
+    });
+  }
+
   const themeContextValue = React.useMemo(() => {
     return {
       theme,
@@ -78,39 +90,48 @@ function NotedApp() {
     };
   }, [theme]);
 
+  const languageContextValue = React.useMemo(() => {
+    return {
+      language,
+      toggleLanguage,
+    };
+  }, [language]);
+
   if (initializing === true) {
     return null;
   }
 
   return (
-    <ThemeContext.Provider value={themeContextValue}>
-      {user === null ? (
-        <WelcomePage onLoginSuccess={onLoginSuccess} />
-      ) : (
-        <>
-          <Header
-            nav={nav}
-            onOpenNav={onOpenNavHandler}
-            onCloseNav={onCloseNavHandler}
-          />
-          <Navigation
-            nav={nav}
-            onCloseNav={onCloseNavHandler}
-            onLogout={onLogout}
-          />
+    <LanguageContext.Provider value={languageContextValue}>
+      <ThemeContext.Provider value={themeContextValue}>
+        {user === null ? (
+          <WelcomePage onLoginSuccess={onLoginSuccess} />
+        ) : (
+          <>
+            <Header
+              nav={nav}
+              onOpenNav={onOpenNavHandler}
+              onCloseNav={onCloseNavHandler}
+            />
+            <Navigation
+              nav={nav}
+              onCloseNav={onCloseNavHandler}
+              onLogout={onLogout}
+            />
 
-          <main className="main" onClick={onCloseNavHandler}>
-            <Routes>
-              <Route path="/" element={<NotesPage />} />
-              <Route path="/add" element={<AddNotePage />} />
-              <Route path="/archive" element={<ArchivePage />} />
-              <Route path="/detail/:id" element={<NoteDetailPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </main>
-        </>
-      )}
-    </ThemeContext.Provider>
+            <main className="main" onClick={onCloseNavHandler}>
+              <Routes>
+                <Route path="/" element={<NotesPage />} />
+                <Route path="/add" element={<AddNotePage />} />
+                <Route path="/archive" element={<ArchivePage />} />
+                <Route path="/detail/:id" element={<NoteDetailPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </main>
+          </>
+        )}
+      </ThemeContext.Provider>
+    </LanguageContext.Provider>
   );
 }
 

@@ -1,11 +1,14 @@
 import React from 'react';
 import {useSearchParams} from 'react-router-dom';
+import LanguageContext from '../contexts/LanguageContext';
+import {PagesContent as content} from '../utils/content';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
 import EmptyNotes from '../components/EmptyNotes';
 import {getActiveNotes, archiveNote, deleteNote} from '../utils/network-data';
 
 function NotesPage() {
+  const {language} = React.useContext(LanguageContext);
   const [notes, setNotes] = React.useState(null);
   const [input, setInput] = React.useState('');
   const [query, setQuery] = React.useState('');
@@ -69,7 +72,7 @@ function NotesPage() {
   return (
     <section className="notes-page">
       <div className="notes-page__head">
-        <h2>Notes</h2>
+        <h2>{content[language].notes}</h2>
         <SearchBar
           input={input}
           onInputChange={onInputChangeHandler}

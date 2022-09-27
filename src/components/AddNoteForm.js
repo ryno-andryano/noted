@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import LanguageContext from '../contexts/LanguageContext';
+import {AddNoteFormContent as content} from '../utils/content';
 
 function AddNoteForm({title, body, onTitleChange, onBodyChange, onAddNote}) {
+  const {language} = React.useContext(LanguageContext);
+
   return (
     <form
       className="add-form"
@@ -13,13 +17,13 @@ function AddNoteForm({title, body, onTitleChange, onBodyChange, onAddNote}) {
       <input
         type="text"
         className="add-form__title"
-        placeholder="Note Title"
+        placeholder={content[language].title}
         value={title}
         onChange={(event) => onTitleChange(event.target.value)}
       ></input>
       <textarea
         className="add-form__body"
-        placeholder="Write your note here..."
+        placeholder={content[language].body}
         value={body}
         onChange={(event) => onBodyChange(event.target.value)}
         required
@@ -32,10 +36,10 @@ function AddNoteForm({title, body, onTitleChange, onBodyChange, onAddNote}) {
             window.history.back();
           }}
         >
-          Cancel
+          {content[language].cancel}
         </button>
         <button className="add-form__save-button" type="submit">
-          Save
+          {content[language].save}
         </button>
       </div>
     </form>

@@ -18,7 +18,7 @@ function Header({nav, onOpenNav, onCloseNav}) {
                 ? '/images/logo.png'
                 : '/images/logo-inverse.png'
             }
-            alt=""
+            alt="Noted"
           ></img>
         </Link>
         <button

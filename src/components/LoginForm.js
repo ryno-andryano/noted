@@ -1,10 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import ThemeContext from '../contexts/ThemeContext';
+import LanguageContext from '../contexts/LanguageContext';
+import {LoginFormContent as content} from '../utils/content';
 import {login} from '../utils/network-data';
 
 function LoginForm({onLoginSuccess}) {
   const {theme} = React.useContext(ThemeContext);
+  const {language} = React.useContext(LanguageContext);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -32,7 +35,7 @@ function LoginForm({onLoginSuccess}) {
         src={
           theme === 'light' ? '/images/logo.png' : '/images/logo-inverse.png'
         }
-        alt=""
+        alt="Noted"
       ></img>
       <form className="login-page__form" onSubmit={onLoginHandler}>
         <input
@@ -46,19 +49,19 @@ function LoginForm({onLoginSuccess}) {
         <input
           className="login-page__password"
           type="password"
-          placeholder="Password"
+          placeholder={content[language].password}
           value={password}
           onChange={(event) => onPasswordChange(event.target.value)}
           required
         ></input>
         <button className="login-page__button" type="submit">
-          LOGIN
+          {content[language].login}
         </button>
       </form>
       <p className="login-page__message">
-        Don't have an account?{' '}
+        {content[language].message}
         <Link to="/sign-up" className="login-page__link">
-          Sign Up
+          {content[language].link}
         </Link>
       </p>
     </section>

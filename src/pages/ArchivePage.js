@@ -1,5 +1,7 @@
 import React from 'react';
 import {useSearchParams} from 'react-router-dom';
+import LanguageContext from '../contexts/LanguageContext';
+import {PagesContent as content} from '../utils/content';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
 import EmptyNotes from '../components/EmptyNotes';
@@ -10,6 +12,7 @@ import {
 } from '../utils/network-data';
 
 function ArchivePage() {
+  const {language} = React.useContext(LanguageContext);
   const [notes, setNotes] = React.useState(null);
   const [input, setInput] = React.useState('');
   const [query, setQuery] = React.useState('');
@@ -73,7 +76,7 @@ function ArchivePage() {
   return (
     <section className="archive-page">
       <div className="archive-page__head">
-        <h2>Archive</h2>
+        <h2>{content[language].archive}</h2>
         <SearchBar
           input={input}
           onInputChange={onInputChangeHandler}
