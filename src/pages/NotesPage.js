@@ -6,6 +6,7 @@ import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
 import EmptyNotes from '../components/EmptyNotes';
 import {getActiveNotes, archiveNote, deleteNote} from '../utils/network-data';
+import Loading from '../components/Loading';
 
 function NotesPage() {
   const {language} = React.useContext(LanguageContext);
@@ -59,7 +60,7 @@ function NotesPage() {
   }
 
   if (notes === null) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   let filteredNotes = notes;

@@ -7,6 +7,7 @@ import {PagesContent as content} from '../utils/content';
 import NoteDetail from '../components/NoteDetail';
 import NotFoundPage from './NotFoundPage';
 import {MdChevronLeft} from 'react-icons/md';
+import Loading from '../components/Loading';
 
 function NoteDetailPage() {
   const {language} = React.useContext(LanguageContext);
@@ -27,7 +28,7 @@ function NoteDetailPage() {
   }
 
   if (!note) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (

@@ -10,6 +10,7 @@ import {
   unarchiveNote,
   deleteNote,
 } from '../utils/network-data';
+import Loading from '../components/Loading';
 
 function ArchivePage() {
   const {language} = React.useContext(LanguageContext);
@@ -63,7 +64,7 @@ function ArchivePage() {
   }
 
   if (notes === null) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   let filteredNotes = notes;
